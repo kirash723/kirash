@@ -3,13 +3,15 @@ using System.Collections;
 
 public class StageLoader : MonoBehaviour {
 
-	public static int MINE_NUM =1;    //爆弾の数
+	public static int MINE_NUM = 1;    //爆弾の数
+	public static int MINE_GET = 1;    //あたりの数
 	private const int MASS_WID = 3;    //マスの数（幅）
 	private const int MASS_HEI = 3;    //マスの数（高さ）
 	private const int WALL = 2;			//両端の壁
 
 	public static bool[,] isOpen = new bool[MASS_WID + WALL, MASS_HEI + WALL];
 	public static bool[,] isMine = new bool[MASS_WID + WALL, MASS_HEI + WALL];
+	public static bool[,] isGet = new bool[MASS_WID + WALL, MASS_HEI + WALL]; 
 	public static int[,] mineNum = new int[MASS_WID + WALL, MASS_HEI + WALL];
 
 	public static bool isGameOver = false;
@@ -18,6 +20,7 @@ public class StageLoader : MonoBehaviour {
 
     public GameObject m_floor;
 	public GameObject Bomm;
+	public GameObject Get;
 	public GameObject Cube0;
 	public GameObject Cube1;
 	public GameObject Cube2;
@@ -97,29 +100,18 @@ public class StageLoader : MonoBehaviour {
 			for (int i = 0; i < MINE_NUM; i++)
 			{
 				int x, y = 0;
-				do
-				{
+
 					x = Random.Range(1, MASS_WID);
 					y = Random.Range(1, MASS_HEI);
-				} while (isMine[x, y] ||
-					(x == _x + 1 && y == _y + 1) ||
-					(x == _x && y == _y + 1) ||
-					(x == _x - 1 && y == _y + 1) ||
-					(x == _x + 1 && y == _y) ||
-					(x == _x - 1 && y == _y) ||
-					(x == _x + 1 && y == _y - 1) ||
-					(x == _x && y == _y - 1) ||
-					(x == _x + 1 && y == _y - 1));
+				 
 
-				isMine[x, y] = true;
-				mineNum[x + 1, y + 1]++;
-				mineNum[x + 1, y]++;
-				mineNum[x + 1, y - 1]++;
-				mineNum[x, y + 1]++;
-				mineNum[x, y - 1]++;
-				mineNum[x - 1, y + 1]++;
-				mineNum[x - 1, y]++;
-				mineNum[x - 1, y - 1]++;
+				isMine[ x , y ] = true;
+
+					x = Random.Range(1, MASS_WID);
+					y = Random.Range(1, MASS_HEI);
+
+				isGet[ x , y ] = true;
+
 			}
 		} while (!isInit);
 
@@ -134,31 +126,38 @@ public class StageLoader : MonoBehaviour {
 				}
 
 				if (isMine [j, i]) {
-					Instantiate ( Bomm, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 0) {
-					Instantiate ( Cube0, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 1) {
-					Instantiate ( Cube1, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 2) {
-					Instantiate ( Cube2, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 3) {
-					Instantiate ( Cube3, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 4) {
-					Instantiate ( Cube4, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 5){
-					Instantiate ( Cube5, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 6) {
-					Instantiate ( Cube6, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 7) {
-					Instantiate ( Cube7, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				} else if (mineNum[j, i] == 18) {
-					Instantiate ( Cube8, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
-				}
+					Instantiate (Bomm, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (isGet [j, i]) {
+					Instantiate (Get, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+
+				}else if (mineNum [j, i] == 0) {
+					Instantiate (Cube0, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (mineNum [j, i] == 1) {
+					Instantiate (Cube1, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (mineNum [j, i] == 2) {
+					Instantiate (Cube2, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (mineNum [j, i] == 3) {
+					Instantiate (Cube3, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (mineNum [j, i] == 4) {
+					Instantiate (Cube4, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (mineNum [j, i] == 5) {
+					Instantiate (Cube5, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (mineNum [j, i] == 6) {
+					Instantiate (Cube6, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (mineNum [j, i] == 7) {
+					Instantiate (Cube7, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} else if (mineNum [j, i] == 8) {
+					Instantiate (Cube8, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+				} 
 					
-				instanceX = instanceX + 1;
+
+
+
+					
+				instanceX = instanceX + 2;
 			}
 			instanceX = 0;
-			instanceY = instanceY + 1;
+			instanceY = instanceY + 2;
 		}
 	}
 }

@@ -44,10 +44,10 @@ public class TouchController : MonoBehaviour {
 			for (int j = 1; j < MASS_HEI + 1; j++) {
 				wall.name = ( "wall" + j + ","+ i );
 				Instantiate ( wall, new Vector3 (instanceX, instanceY, 0), Quaternion.identity);
-				instanceX = instanceX + 1;
+				instanceX = instanceX + 2;
 			}
 			instanceX = 0;
-			instanceY = instanceY + 1;
+			instanceY = instanceY + 2;
 		}
 	}
 
