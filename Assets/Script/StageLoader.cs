@@ -107,10 +107,19 @@ public class StageLoader : MonoBehaviour {
 
 				isMine[ x , y ] = true;
 
-					x = Random.Range(1, MASS_WID);
-					y = Random.Range(1, MASS_HEI);
+				while ( ) {
 
-				isGet[ x , y ] = true;
+					int x1, y1  = 0;
+
+					x1 = Random.Range(1, MASS_WID);
+					y1 = Random.Range(1, MASS_HEI);
+
+					if (  ){
+
+
+					}
+				
+				}
 
 			}
 		} while (!isInit);
@@ -127,6 +136,7 @@ public class StageLoader : MonoBehaviour {
 
 				if (isMine [j, i]) {
 					Instantiate (Bomm, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
+					Debug.Log("mine " + i.ToString() + " " + j.ToString());
 				} else if (isGet [j, i]) {
 					Instantiate (Get, new Vector3 (instanceX, instanceY, 1), Quaternion.identity);
 

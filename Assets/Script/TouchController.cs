@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class TouchController : MonoBehaviour {
 	private const int MASS_WID = 3;    //マスの数（幅）
@@ -17,7 +18,7 @@ public class TouchController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
@@ -64,28 +65,23 @@ public class TouchController : MonoBehaviour {
 		StageLoader.isOpen [x, y] = true;
 
 		GameObject wall = GameObject.Find (( "wall" + x + ","+ y +"(Clone)"));
-		wall.SetActive ( false );
-
+		wall.SetActive (false);
 		if (StageLoader.isMine[x,y])
 		{
 			//爆弾を引いたとき
-			Debug.Log("爆弾を弾きました");																								//爆弾を引いたときの処理
-			
+			Debug.Log("爆弾を弾きました");	
+			//爆弾を引いたときの処理
+			Debug.Log("Game Over");
+			SceneManager.LoadScene ("result");
 		}
-		else if (StageLoader.mineNum[x,y] == 0)
-		{
-			//開いたマスが0の時
-			//全方位のマスを開ける
 
-			Open(x + 1, y + 1);
-			Open(x + 1, y);
-			Open(x + 1, y - 1);
-			Open(x, y + 1);
-			Open(x, y - 1);
-			Open(x - 1, y + 1);
-			Open(x - 1, y);
-			Open(x - 1, y - 1);
+		if (StageLoader.isGet [x, y]) {
+			//出口を引いた時
+			Debug.Log ("Game Clear");
+			SceneManager.LoadScene ("Main");
 		}
+		
+
 
 		//クリア判定
 		ClearCheck();
@@ -106,12 +102,5 @@ public class TouchController : MonoBehaviour {
 			}
 		}
 
-		//爆弾以外のマスを全て開いたとき
-		if (cnt >= (MASS_WID * MASS_HEI) - StageLoader.MINE_NUM)
-		{
-			//爆弾を引いたとき
-			Debug.Log("あなたの勝ちです");	
-			StageLoader.isGameOver = true;
-		}
 	}
 }
