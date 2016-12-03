@@ -66,6 +66,14 @@ public class TouchController : MonoBehaviour {
 
 		GameObject wall = GameObject.Find (( "wall" + x + ","+ y +"(Clone)"));
 		wall.SetActive (false);
+
+		//周りの爆弾と出口の確認
+		if(StageLoader.isNum[x,y]){
+			//爆弾があったとき
+			//出口を見つけたとき
+			//何もなかったとき
+		}
+
 		if (StageLoader.isMine[x,y])
 		{
 			//爆弾を引いたとき
@@ -80,7 +88,8 @@ public class TouchController : MonoBehaviour {
 			Debug.Log ("Game Clear");
 			SceneManager.LoadScene ("Main");
 		}
-		
+
+
 
 
 		//クリア判定

@@ -107,22 +107,27 @@ public class StageLoader : MonoBehaviour {
 
 				isMine[ x , y ] = true;
 
-				while ( ) {
+				while ( true ) {
 
 					int x1, y1  = 0;
 
 					x1 = Random.Range(1, MASS_WID);
 					y1 = Random.Range(1, MASS_HEI);
 
-					if (  ){
 
+					if ( x != x1 || y != y1 ){ 
 
-					}
+						isGet[ x1 , y1 ] = true;
+
+						break; 
+
+						}
+
 				
 				}
 
 			}
-		} while (!isInit);
+	} while (!isInit);
 
 	}
 
